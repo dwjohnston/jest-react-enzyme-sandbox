@@ -20,7 +20,7 @@ function App(props) {
   return (
     <div className="App">
       <header className="App-header">
-        <input type = "text" onChange = {handleChange} onBlur = {handleBlur}/>
+        <input data-testid = "text" type = "text" onChange = {handleChange} onBlur = {handleBlur}/>
       </header>
     </div>
   );

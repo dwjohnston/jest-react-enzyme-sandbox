@@ -1,5 +1,5 @@
-import React from 'react';
-import { render } from '@testing-library/react';
+import React  from 'react';
+import { render, fireEvent, createEvent } from '@testing-library/react';
 import enzyme, {mount} from "enzyme"; 
 import App from './App';
 
@@ -42,4 +42,21 @@ test('This test does not', () => {
   input.invoke('onBlur')(null);   
 
   expect(mockChange).toHaveBeenCalledWith('1'); // expected "1" received ""
+});
+
+
+
+describe("Using react-testing-library", () => {
+
+  it.only ("works", () => {
+    const mockChange = jest.fn(); 
+    const {getByTestId} = render(<App onChange = {mockChange}/>);
+    
+    const input = getByTestId('text');   
+    fireEvent.change(input,{target: {value: '1'}});   
+    fireEvent.blur(input, null);   
+  
+    expect(mockChange).toHaveBeenCalledWith('1');
+  })
+
 });
