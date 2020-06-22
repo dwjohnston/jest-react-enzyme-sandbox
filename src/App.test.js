@@ -7,7 +7,26 @@ var Adapter = require('enzyme-adapter-react-16');
 
 enzyme.configure({ adapter: new Adapter() });
 
-test('gives the correct value on blur', () => {
+test('This test works', () => {
+
+  const mockChange = jest.fn(); 
+  const wrapper = mount(<App onChange = {mockChange}/>); 
+
+  const input = wrapper.find('input'); 
+  input.invoke('onChange')(
+    {target: {
+    value: '1'}
+    }
+  ); 
+
+  const input2 = wrapper.find('input');
+  input2.invoke('onBlur')(null);   
+
+  expect(mockChange).toHaveBeenCalledWith('1');
+});
+
+
+test('This test does not', () => {
 
   const mockChange = jest.fn(); 
   const wrapper = mount(<App onChange = {mockChange}/>); 
@@ -20,16 +39,7 @@ test('gives the correct value on blur', () => {
     }
   ); 
 
+  input.invoke('onBlur')(null);   
 
-  //Doesn't work
-  //input.invoke('onBlur')(null); 
-
-
-  //Works
-  const input2 = wrapper.find('input');
-  input2.invoke('onBlur')(null); 
-
-  
-
-  expect(mockChange).toHaveBeenCalledWith('1');
+  expect(mockChange).toHaveBeenCalledWith('1'); // expected "1" received ""
 });
